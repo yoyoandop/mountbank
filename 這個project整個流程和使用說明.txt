@@ -1,3 +1,28 @@
+首先先打開前端cd myfrontend 然後執行 npm run dev
+點Register做註冊
+Register 
+Username 	itatest
+Email  		itatest@gmail.com
+Password	itatest123
+Phone Number 	+8861323455128
+Biography	我很可愛
+Cover Image URL	aweaafjaksda
+返回註冊成功後點擊Login
+Login
+Phone Number	+8861323455128
+Password	itatest123
+返回Login successful!和jwt jwt會儲存在頁面F12 Application localStorage之後點擊Create Post
+Create New Post
+Content			你好我是一則貼文
+Image URL (optional)    awawaawawawawa
+之後點擊Home就可以看到剛剛創的那篇貼文 用戶只能查詢自己的貼文 用戶只能編輯自己的貼文 用戶只能刪除自己的貼文
+然後點擊Create Comment 輸入
+Comment Content:   這是一則留言
+Post ID (Number):  1
+這個意思是現在的登入狀態的使用者在Post_id是1的貼文下留下一則留言，可以對其他用戶發的貼文做留言也可以對自己發的貼文做留言
+
+下面的是我這個project整個的實作歷程
+
 需要手動創建一個mountbank的mysql資料庫
 步驟 1：創建新的 MySQL 連接（如果尚未創建）
 打開 MySQL Workbench。
@@ -252,11 +277,14 @@ myfrontend/
 │   ├── components/PostEdit.vue         # Vue 組件
 │   ├── components/PostList.vue         # Vue 組件
 │   ├── components/RegisterForm.vue         # Vue 組件
+│   ├── components/CommentCreate.vue       # Vue 組件
+│   ├── models-Comment.ts
 │   ├── models-Post.ts
 │   ├── models-Usr.ts
 │   ├── router/index.ts             # 路由設定
 │   ├── services/PostService.ts
 │   ├── services/UserService.ts
+│   ├── services/CommentService.ts
 │   ├── App.vue             # 主 Vue 組件
 │   ├── main.ts             # 入口文件
 ├── index.html              # 主 HTML 頁面
@@ -278,21 +306,6 @@ localStorage 有jwt key鍵儲存jwt 這可以用來發送給後端用戶就不�
 
 
 
-
-test66666
-
-66666666
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 

@@ -6,6 +6,7 @@
       <router-link to="/create-post" class="nav-link">Create Post</router-link>
       <router-link to="/login" class="nav-link">Login</router-link>
       <router-link to="/register" class="nav-link">Register</router-link>
+      <router-link to="/create-comment" class="nav-link">Create Comment</router-link>  <!-- 新增：創建留言 -->
     </nav>
     <router-view></router-view>
   </div>
@@ -32,7 +33,7 @@ nav {
   margin-right: 15px;
   font-weight: 500;
   padding: 8px 15px;
-  border-radius: 4px;  /* 连接圆角 */
+  border-radius: 4px;  /* 圆角效果 */
   transition: background-color 0.3s;  /* 平滑过渡效果 */
 }
 

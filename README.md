@@ -1,4 +1,28 @@
-# Mountbank Project 
+首先先打開前端cd myfrontend 然後執行 npm run dev
+點Register做註冊
+Register
+Username 	itatest
+Email  		itatest@gmail.com
+Password	itatest123
+Phone Number 	+8861323455128
+Biography	我很可愛
+Cover Image URL	aweaafjaksda
+返回註冊成功後點擊Login
+Login
+Phone Number	+8861323455128
+Password	itatest123
+返回Login successful!和jwt jwt會儲存在頁面F12 Application localStorage之後點擊Create Post
+Create New Post
+Content			你好我是一則貼文
+Image URL (optional)    awawaawawawawa
+之後點擊Home就可以看到剛剛創的那篇貼文 用戶只能查詢自己的貼文 用戶只能編輯自己的貼文 用戶只能刪除自己的貼文
+然後點擊Create Comment 輸入
+Comment Content:   這是一則留言
+Post ID (Number):  1
+這個意思是現在的登入狀態的使用者在Post_id是1的貼文下留下一則留言，可以對其他用戶發的貼文做留言也可以對自己發的貼文做留言
+
+下面的是我這個project整個的實作歷程
+
 需要手動創建一個mountbank的mysql資料庫
 步驟 1：創建新的 MySQL 連接（如果尚未創建）
 打開 MySQL Workbench。
@@ -33,21 +57,21 @@ SELECT * FROM users
 
 第一個是後端註冊api
 POST http://localhost:8080/api/users/register
-Content-Type application/json 
+Content-Type application/json
 {
-  "username": "test",
-  "email": "test123@example.com",
-  "password": "test123",
-  "coverImage": "imageUrlOrPath",
-  "biography": "I am a new cute user.",
-  "phoneNumber": "+123454321"
+"username": "test",
+"email": "test123@example.com",
+"password": "test123",
+"coverImage": "imageUrlOrPath",
+"biography": "I am a new cute user.",
+"phoneNumber": "+123454321"
 }
 第二個是後端登入api
-POST http://localhost:8080/api/users/login 
-Content-Type application/json 
+POST http://localhost:8080/api/users/login
+Content-Type application/json
 {
-  "phoneNumber": "+123454321",
-  "password": "test123"
+"phoneNumber": "+123454321",
+"password": "test123"
 }
 然後返回jwt 令牌 jwt令牌裡面有包含phoneNumber
 
@@ -94,8 +118,8 @@ POST http://localhost:8080/posts
 Authorization Bearer +jwt令牌
 Content-Type  application/json
 {
-  "content": "新的發文內容",
-  "image": "http://example.com/image.jpg"
+"content": "新的發文內容",
+"image": "http://example.com/image.jpg"
 }
 如果成功會返回200類似以下格式
 {
@@ -121,8 +145,8 @@ PUT http://localhost:8080/posts/1
 Authorization Bearer +jwt令牌
 Content-Type  application/json
 {
-  "content": "新的發文內容去做修改",
-  "image": "http://example.com/image.jpg"
+"content": "新的發文內容去做修改",
+"image": "http://example.com/image.jpg"
 }
 
 第六個api 先驗證post_id 是否為該名用戶發的如果是的話就給予刪除這則posts如果不是該名用戶發的文的話就無法刪除
@@ -137,7 +161,7 @@ POST http://localhost:8080/comments/add/1
 Authorization Bearer +jwt令牌
 Content-Type application/json
 {
-  "content": "這是一條留言"
+"content": "這是一條留言"
 }
 如果成功會返回200類似以下格式
 {
@@ -190,17 +214,17 @@ import vue from '@vitejs/plugin-vue';
 //const backendUrl = process.env.BACKEND_URL || 'http://backend:8080'; // 使用 Docker Compose 的後端服務名稱
 const backendUrl = process.env.BACKEND_URL || 'http://localhost:8080';  //使用本地端開發環境localhost
 export default defineConfig({
-  plugins: [vue()],
-  server: {
-    port: 3000, // 指定前端服务运行的端口
-    proxy: {
-      '/api': {
-        target: backendUrl, // 使用後端服務名稱
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''), // 重写路径
-      },
-    },
-  },
+plugins: [vue()],
+server: {
+port: 3000, // 指定前端服务运行的端口
+proxy: {
+'/api': {
+target: backendUrl, // 使用後端服務名稱
+changeOrigin: true,
+rewrite: (path) => path.replace(/^\/api/, ''), // 重写路径
+},
+},
+},
 });
 
 安裝和配置 vue-router
@@ -233,13 +257,13 @@ npm install axios
 
 確保在 tsconfig.json 中加入以下配置：
 {
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ESNext",
-    "jsx": "preserve",
-    "esModuleInterop": true
-  }
+"compilerOptions": {
+"module": "ESNext",
+"moduleResolution": "Node",
+"target": "ESNext",
+"jsx": "preserve",
+"esModuleInterop": true
+}
 }
 
 
@@ -253,11 +277,14 @@ myfrontend/
 │   ├── components/PostEdit.vue         # Vue 組件
 │   ├── components/PostList.vue         # Vue 組件
 │   ├── components/RegisterForm.vue         # Vue 組件
+│   ├── components/CommentCreate.vue       # Vue 組件
+│   ├── models-Comment.ts
 │   ├── models-Post.ts
 │   ├── models-Usr.ts
 │   ├── router/index.ts             # 路由設定
 │   ├── services/PostService.ts
 │   ├── services/UserService.ts
+│   ├── services/CommentService.ts
 │   ├── App.vue             # 主 Vue 組件
 │   ├── main.ts             # 入口文件
 ├── index.html              # 主 HTML 頁面
@@ -272,10 +299,11 @@ localStorage 有jwt key鍵儲存jwt 這可以用來發送給後端用戶就不�
 因為你使用了 Spring Security 並且 JWT 解析過程是在 JwtRequestFilter 中處理，這就需要正確配置 Spring Security 來允許跨域請求並支持帶有 JWT 的請求。這樣，當前端發送帶有 JWT 的請求時，後端能夠正確處理認證和授權邏輯。以下是一些重點和建議的配置方式，確保 Spring Security 能夠正常處理 JWT 請求：
 
 1. 配置 Spring Security 的 WebSecurityConfigurerAdapter
-需要確保配置允許跨域請求並正確配置 JwtRequestFilter。
+   需要確保配置允許跨域請求並正確配置 JwtRequestFilter。
 
 . 前端 Axios 配置
 確認你在前端的 Axios 請求中設置了 withCredentials: true，這樣前端會攜帶跨域的憑證（JWT）。
 
 
 
+ 
