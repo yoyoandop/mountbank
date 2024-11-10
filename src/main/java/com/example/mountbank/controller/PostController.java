@@ -10,6 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowedHeaders = {"Authorization", "Content-Type"},
+        allowCredentials = "true"
+)
 public class PostController {
 
     private final PostService postService;

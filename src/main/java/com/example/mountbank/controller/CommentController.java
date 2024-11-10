@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/comments")
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowedHeaders = {"Authorization", "Content-Type"},
+        allowCredentials = "true"
+)
 public class CommentController {
 
     private final CommentService commentService;
