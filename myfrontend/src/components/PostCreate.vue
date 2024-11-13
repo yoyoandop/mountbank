@@ -18,31 +18,24 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { createPost } from '../services/PostService'; // Import the service to handle post creation
+import { createPost } from '../services/PostService';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'PostCreate',
   setup() {
-    const content = ref(''); // Post content
-    const image = ref(''); // Post image URL (optional)
-    const router = useRouter(); // For navigation after creating post
-    const token = localStorage.getItem('jwt'); // Get the JWT token from local storage
+    const content = ref('');
+    const image = ref('');
+    const router = useRouter();
 
     const handleCreatePost = async () => {
-      if (token) {
-        // Create the new post object without createdAt
-        const newPost = {
-          content: content.value,
-          image: image.value,
-        };
+      const newPost = {
+        content: content.value,
+        image: image.value,
+      };
 
-        // Call the createPost function from the service to send the data to the backend
-        await createPost(newPost, token);
-
-        // Redirect to the posts list page after creating the post
-        router.push('/posts');
-      }
+      await createPost(newPost);
+      router.push('/posts');
     };
 
     return {

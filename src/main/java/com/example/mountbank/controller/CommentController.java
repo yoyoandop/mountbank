@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/comments")
 @CrossOrigin(
         origins = "http://localhost:3000",
-        allowedHeaders = {"Authorization", "Content-Type"},
+        allowedHeaders = "*",
         allowCredentials = "true"
 )
 public class CommentController {

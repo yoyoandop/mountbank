@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/posts")
 @CrossOrigin(
         origins = "http://localhost:3000",
-        allowedHeaders = {"Authorization", "Content-Type"},
+        allowedHeaders = "*",
         allowCredentials = "true"
 )
 public class PostController {

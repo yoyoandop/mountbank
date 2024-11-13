@@ -273,6 +273,7 @@ myfrontend/
 ├── src/                    # 源代碼
 │   ├── assets/             # 靜態資源
 │   ├── components/LoginForm.vue         # Vue 組件
+│   ├── components/Logout.vue         # Vue 組件
 │   ├── components/PostCreate.vue         # Vue 組件
 │   ├── components/PostEdit.vue         # Vue 組件
 │   ├── components/PostList.vue         # Vue 組件
@@ -303,6 +304,90 @@ localStorage 有jwt key鍵儲存jwt 這可以用來發送給後端用戶就不�
 
 . 前端 Axios 配置
 確認你在前端的 Axios 請求中設置了 withCredentials: true，這樣前端會攜帶跨域的憑證（JWT）。
+
+
+
+
+config-SecurityConfig
+config-redis.js
+controller-CommentController
+controller-PostController
+controller-UserController
+filter-JwtRequestFilter
+model-Comment
+model-Post
+model-User
+repository-CommentRepository
+repository-PostRepository
+repository-UserRepository
+service-CommentService
+service-PostService
+service-UserDetailsService
+service-UserService
+service-cacheService
+util-JwtUtil
+
+
+
+避免使用 localStorage 儲存敏感資料 使用 HttpOnly Cookie 儲存 JWT
+
+redis容器執行後在cmd打 您可以通過以下命令來獲取 Redis 容器的 IP 地址：docker inspect recursing_ritchie
+
+
+安裝 Redis 客戶端庫
+
+npm install ioredis
+
+PS C:\Users\POWER USER\OneDrive\桌面\github\Mountbank\src\main\resources> keytool -genkeypair -alias localhost -keyalg RSA -keysize 2048 -keystore keystore.jks -validity 3650 -storepass password -keypass password -dname "CN=localhost, OU=MyOrgUnit, O=MyOrganization, L=MyCity, ST=MyState, C=US"
+keystore.jks 放置在 src/main/resources 目录下，可以使用 classpath:keystore.jks 来指向该文件，Spring Boot 会自动找到它。
+server.port=8443
+server.ssl.key-store=classpath:keystore.jks
+server.ssl.key-store-password=password
+server.ssl.key-store-type=JKS
+server.ssl.key-alias=localhost
+
+後端接口全都變成https://localhost:8443了 且無法使用http了
+
+
+前端:信任自签名证书： 由于你使用的是自签名证书，浏览器默认不会信任它。你需要手动将自签名证书添加到浏览器的信任列表中。
+步骤：
+在浏览器中访问你的 https://localhost:8443 后端地址。
+浏览器会提示证书不受信任，点击 高级 或 查看证书。
+导出证书并将其安装到本地受信任的根证书颁发机构中。
+重新加载页面，看看是否仍然出现相同的错误。
+
+
+
+123321
+test123321
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

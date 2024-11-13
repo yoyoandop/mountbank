@@ -4,7 +4,8 @@ import PostCreate from '../components/PostCreate.vue';
 import PostEdit from '../components/PostEdit.vue';
 import LoginForm from '../components/LoginForm.vue';
 import RegisterForm from '../components/RegisterForm.vue';
-import CommentCreate from '../components/CommentCreate.vue';  // 引入新的组件
+import CommentCreate from '../components/CommentCreate.vue';
+import Logout from '../components/Logout.vue';
 
 const routes = [
     {
@@ -37,6 +38,12 @@ const routes = [
         name: 'CreateComment',
         component: CommentCreate,  // 创建评论页面
     },
+    {
+        path: '/logout',
+        name: 'Logout',
+        component: Logout
+    },
+
 ];
 
 const router = createRouter({

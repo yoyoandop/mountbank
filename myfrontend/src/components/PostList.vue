@@ -4,7 +4,8 @@
     <div v-if="posts.length">
       <div v-for="post in posts" :key="post.postId" class="post-card">
         <p>{{ post.content }}</p>
-        <p>Posted on: {{ new Date(post.createdAt).toLocaleString() }}</p>
+        <!-- 修正日期格式問題 -->
+        <p>Posted on: {{ formatDate(post.createdAt) }}</p>
         <button @click="deletePost(post.postId)">Delete</button>
         <router-link :to="`/edit-post/${post.postId}`">Edit</router-link>
       </div>
@@ -19,27 +20,32 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import { getPosts, deletePost } from '../services/PostService';
-import { Post } from '../models/Post';  // Import the Post model
+import { Post } from '../models/Post';
 
 export default defineComponent({
   name: 'PostList',
   setup() {
-    const posts = ref<Post[]>([]);  // Define the posts as an array of Post objects
-    const token = localStorage.getItem('jwt'); // Assuming JWT is saved in local storage
+    const posts = ref<Post[]>([]);
 
-    // Fetch posts on mount
     const fetchPosts = async () => {
-      if (token) {
-        posts.value = await getPosts(token);
-      }
+      posts.value = await getPosts();
     };
 
-    // Delete a post
     const handleDelete = async (postId: number) => {
-      if (token) {
-        await deletePost(postId, token);
-        fetchPosts(); // Refresh the posts list
+      await deletePost(postId);
+      fetchPosts();
+    };
+
+    // 格式化日期的函數，處理 undefined 的情況
+    const formatDate = (date: string | number | Date | undefined) => {
+      if (date === undefined) {
+        return 'No date available'; // 當日期為 undefined 時返回預設文本
       }
+      const d = new Date(date);
+      if (isNaN(d.getTime())) {
+        return 'Invalid date'; // 如果日期無效，顯示“無效日期”
+      }
+      return d.toLocaleString(); // 轉換為可讀的日期字符串
     };
 
     onMounted(fetchPosts);
@@ -47,6 +53,7 @@ export default defineComponent({
     return {
       posts,
       deletePost: handleDelete,
+      formatDate,
     };
   },
 });

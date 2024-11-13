@@ -28,6 +28,10 @@ public class JwtUtil {
         return getClaimsFromToken(token).getExpiration();
     }
 
+    public long getTokenExpirationTimeInMillis(String token) {
+        return getExpirationDateFromToken(token).getTime();
+    }
+
     // 提取 JWT 中的所有 Claims
     private Claims getClaimsFromToken(String token) {
         JwtParser parser = Jwts.parserBuilder().setSigningKey(SECRET_KEY).build();

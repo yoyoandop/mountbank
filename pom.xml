@@ -77,9 +77,23 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!-- cacheService -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <!-- redis -->
 
-
-
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>4.4.0</version> <!-- 或其他適合的版本 -->
+        </dependency>
 
 
 

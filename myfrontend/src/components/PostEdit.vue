@@ -20,7 +20,7 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getPosts, updatePost } from '../services/PostService';
-import { PostUpdate } from '../models/Post'; // 使用 PostUpdate 類型
+import { Post, PostUpdate } from '../models/Post';
 
 export default defineComponent({
   name: 'PostEdit',
@@ -29,33 +29,26 @@ export default defineComponent({
     const image = ref('');
     const route = useRoute();
     const router = useRouter();
-    const token = localStorage.getItem('jwt');
-    const postId = String(route.params.id); // 確保 postId 為字符串
+    const postId = String(route.params.id);
 
-    // 取得要編輯的帖子
     const fetchPost = async () => {
-      if (token && postId) {
-        const posts = await getPosts(token);
-        const post = posts.find((p) => p.postId === parseInt(postId)); // 比對 postId
-        if (post) {
-          content.value = post.content;
-          image.value = post.image || '';
-        }
+      const posts: Post[] = await getPosts(); // 確保 posts 被正確類型化
+      const post = posts.find((p: Post) => p.postId === parseInt(postId));
+      if (post) {
+        content.value = post.content;
+        image.value = post.image;
       }
     };
 
-    // 更新帖子
     const handleUpdatePost = async () => {
-      if (token && postId) {
-        const updatedPost: PostUpdate = {
-          content: content.value,
-          image: image.value,
-          createdAt: new Date().toISOString(), // 以當前時間為創建時間
-        };
+      const updatedPost: PostUpdate = {
+        content: content.value,
+        image: image.value,
+        createdAt: new Date().toISOString(),
+      };
 
-        await updatePost(parseInt(postId), updatedPost, token); // 更新帖子
-        router.push('/posts'); // 更新後返回帖子列表頁
-      }
+      await updatePost(parseInt(postId), updatedPost);
+      router.push('/posts');
     };
 
     onMounted(fetchPost);
@@ -68,14 +61,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-form {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-button {
-  margin-top: 10px;
-}
-</style>
