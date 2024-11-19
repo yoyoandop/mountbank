@@ -27,11 +27,30 @@ export default {
       password: '',
     });
     const message = ref('');
+    let socket: WebSocket | null = null;
+
+    const connectWebSocket = () => {
+      // 创建 WebSocket 连接
+      socket = new WebSocket('wss://localhost:8443/notifications'); // 端点与后端配置一致
+      socket.onopen = () => {
+        console.log('WebSocket connection established');
+      };
+      socket.onmessage = (event) => {
+        console.log('Received message:', event.data);
+      };
+      socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
+      socket.onclose = () => {
+        console.log('WebSocket connection closed');
+      };
+    };
 
     const loginUser = async () => {
       try {
         const response = await UserService.login(user.value);
         message.value = 'Login successful!';
+        connectWebSocket(); // 登录成功后建立 WebSocket 连接
       } catch (error) {
         message.value = 'Login failed!';
       }

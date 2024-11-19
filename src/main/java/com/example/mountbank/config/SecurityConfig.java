@@ -44,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // 启用 CORS 配置
                 .csrf().disable() // 禁用 CSRF（適合前後端分離應用，否則需要額外設置 CSRF token）
                 .authorizeRequests()
+                // 配置 WebSocket 路徑不需要安全過濾
+                .antMatchers("/notifications").authenticated() // 受保護端點 // 允許 WebSocket 握手請求，不需要 JWT 認證
+
 
                 .antMatchers("/api/users/login", "/api/users/register").permitAll()
                 .antMatchers("/posts", "/posts/{id}").authenticated() // 受保護端點

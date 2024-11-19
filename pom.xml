@@ -94,6 +94,16 @@
             <artifactId>jedis</artifactId>
             <version>4.4.0</version> <!-- 或其他適合的版本 -->
         </dependency>
+        <!-- WebSocket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+
+
+
+
 
 
 

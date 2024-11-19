@@ -35,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         // 如果请求是登录或注册接口，跳过 JWT 验证
         String uri = request.getRequestURI();
-        if (uri.equals("/api/users/login") || uri.equals("/api/users/register")) {
+        if (uri.equals("/api/users/login") || uri.equals("/api/users/register") ) {
             chain.doFilter(request, response);  // 继续处理请求
             return;  // 直接返回，避免进入 JWT 验证逻辑
         }
@@ -61,6 +61,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             // 从 JWT 提取 phoneNumber
             phoneNumber = jwtUtil.getPhoneNumberFromToken(jwt);
+
         }
 
         // 如果有效的 JWT 和 phoneNumber 被提取出来，设置认证上下文

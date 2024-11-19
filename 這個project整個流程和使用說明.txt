@@ -284,6 +284,7 @@ myfrontend/
 │   ├── models-Usr.ts
 │   ├── router/index.ts             # 路由設定
 │   ├── services/PostService.ts
+│   ├── services/NotificationService
 │   ├── services/UserService.ts
 │   ├── services/CommentService.ts
 │   ├── App.vue             # 主 Vue 組件
@@ -306,8 +307,8 @@ localStorage 有jwt key鍵儲存jwt 這可以用來發送給後端用戶就不�
 確認你在前端的 Axios 請求中設置了 withCredentials: true，這樣前端會攜帶跨域的憑證（JWT）。
 
 
-
-
+config-JwtHandshakeInterceptor
+config-WebSocketConfig
 config-SecurityConfig
 config-redis.js
 controller-CommentController
@@ -325,6 +326,7 @@ service-PostService
 service-UserDetailsService
 service-UserService
 service-cacheService
+service-NotificationService
 util-JwtUtil
 
 
@@ -357,40 +359,44 @@ server.ssl.key-alias=localhost
 重新加载页面，看看是否仍然出现相同的错误。
 
 
+使用Nginx
+docker pull nginx
+掛載到靜態後端資源
+docker run --name my-nginx -p 80:80 -v "C:/Users/POWER USER/OneDrive/桌面/github/Mountbank/src/main/resources/static:/usr/share/nginx/html" -d nginx
 
-123321
-test123321
+在專案根目錄創建 nginx.conf 文件
+cd C:\Users\POWER USER\OneDrive\桌面\github\Mountbank
+notepad nginx.conf
+刪除容器
+docker rm my-nginx
+重開容器
+docker restart my-nginx
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+這是我照片的在瀏覽器的瀏覽地址
+http://localhost/images/02.jpg
 
 
 
+WebSocket
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
+</dependencies>
 
+前端安裝 WebSocket 庫
+npm install socket.io-client
 
+前端只要確認到是有登入成功的情況下 前端就直接進行WebSocket連接 並且對後端的WebSocket 發送HttpOnly Cookie  JWT 
 
+nginx容器指令
+重新載入配置
+docker exec -it my-nginx bash
+nginx -s reload
+訪問日誌
+docker exec -it my-nginx bash
+tail -f /dev/stderr
 
-
-
-
-
-
-
-
-
-
-
- 
-
+從jwt提取phonenumber當作WebSocket 会话的唯一標示符
 

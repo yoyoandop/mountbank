@@ -16,10 +16,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted, onUnmounted } from 'vue';
 import { Comment } from '../models/Comment';
 import { createComment } from '../services/CommentService';
 import { useRouter } from 'vue-router';
+import NotificationService from '../services/NotificationService';
 
 export default defineComponent({
   name: 'CommentCreate',
@@ -30,14 +31,25 @@ export default defineComponent({
       number: 0,
     });
 
+    // 创建评论并提交
     const createCommentHandler = async () => {
       try {
         await createComment(comment.value.number.toString(), comment.value);
-        router.push('/');
+        router.push('/'); // 重定向到主页
       } catch (error) {
         console.error('Failed to create comment:', error);
       }
     };
+
+    // 在 mounted 时连接 WebSocket
+    onMounted(() => {
+      NotificationService.connect();
+    });
+
+    // 在 unmounted 时断开 WebSocket
+    onUnmounted(() => {
+      NotificationService.disconnect();
+    });
 
     return {
       comment,

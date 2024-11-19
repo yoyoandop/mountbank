@@ -52,14 +52,11 @@ public class UserController {
         User user = userService.validateLogin(loginDetails.getPhoneNumber(), loginDetails.getPassword());
         String jwtToken = jwtUtil.generateToken(user.getPhoneNumber());
 
-        Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
-        jwtCookie.setHttpOnly(true);
-        jwtCookie.setSecure(true);
-        jwtCookie.setPath("/");
-        jwtCookie.setMaxAge(60 * 60 * 10);
+
+
         // 手动设置 SameSite 属性
         response.setHeader("Set-Cookie", "jwtToken=" + jwtToken + "; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=" + (60 * 60 * 10));
-        response.addCookie(jwtCookie);
+
         return ResponseEntity.ok("Login successful. JWT set in cookie.");
     }
 
