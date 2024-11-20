@@ -363,7 +363,7 @@ server.ssl.key-alias=localhost
 docker pull nginx
 掛載到靜態後端資源
 docker run --name my-nginx -p 80:80 -v "C:/Users/POWER USER/OneDrive/桌面/github/Mountbank/src/main/resources/static:/usr/share/nginx/html" -d nginx
-
+http://localhost/images/02.jpg
 在專案根目錄創建 nginx.conf 文件
 cd C:\Users\POWER USER\OneDrive\桌面\github\Mountbank
 notepad nginx.conf
@@ -399,4 +399,23 @@ docker exec -it my-nginx bash
 tail -f /dev/stderr
 
 從jwt提取phonenumber當作WebSocket 会话的唯一標示符
+
+
+照片api
+創建
+POST https://localhost:8443/api/images
+Content-Type application/json
+{
+  "id": 1,
+  "bookName": "test",
+  "url": "http://localhost/images/02.jpg",
+  "imageName": "cuteimages02"
+}
+搜尋
+GET https://localhost:8443/api/images
+
+
+
+
+
 

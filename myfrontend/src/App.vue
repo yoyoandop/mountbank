@@ -8,6 +8,7 @@
       <router-link to="/register" class="nav-link">Register</router-link>
       <router-link to="/create-comment" class="nav-link">Create Comment</router-link>  <!-- 新增：創建留言 -->
       <router-link to="/logout" class="nav-link">Logout</router-link>  <!-- 新增：創建留言 -->
+      <router-link to="/images" class="nav-link">ImagesList</router-link>  <!-- 新增：創建留言 -->
     </nav>
     <router-view></router-view>
   </div>

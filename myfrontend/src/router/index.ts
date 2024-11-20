@@ -6,6 +6,7 @@ import LoginForm from '../components/LoginForm.vue';
 import RegisterForm from '../components/RegisterForm.vue';
 import CommentCreate from '../components/CommentCreate.vue';
 import Logout from '../components/Logout.vue';
+import Images from '../components/ImagesList.vue';
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
         path: '/logout',
         name: 'Logout',
         component: Logout
+    },
+    {
+        path: '/images',
+        name: 'Images',
+        component: Images
     },
 
 ];

@@ -35,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         // 如果请求是登录或注册接口，跳过 JWT 验证
         String uri = request.getRequestURI();
-        if (uri.equals("/api/users/login") || uri.equals("/api/users/register") ) {
+        if (uri.equals("/api/users/login") || uri.equals("/api/users/register") || uri.equals("/api/images/{id}") || uri.equals("/api/images/book/{bookName}") ) {
             chain.doFilter(request, response);  // 继续处理请求
             return;  // 直接返回，避免进入 JWT 验证逻辑
         }
