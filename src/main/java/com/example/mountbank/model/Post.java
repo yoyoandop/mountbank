@@ -2,6 +2,7 @@ package com.example.mountbank.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -25,6 +26,11 @@ public class Post {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "like_count", nullable = false)
+    private int likeCount = 0; // 新增讚數屬性，默認為 0
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Like> likes;
     // Default constructor
     public Post() {}
 
@@ -34,6 +40,7 @@ public class Post {
         this.content = content;
         this.image = image;
         this.createdAt = createdAt;
+        this.likeCount = 0; // 默認初始化
     }
 
     // Getter and Setter methods
@@ -76,5 +83,21 @@ public class Post {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public void incrementLikeCount() {
+        this.likeCount++;
+    }
+
+    public void decrementLikeCount() {
+        this.likeCount--;
     }
 }

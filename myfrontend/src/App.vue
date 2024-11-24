@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <nav>
-      <!-- 这是导航栏, 你可以根据需求选择链接 -->
       <router-link to="/" class="nav-link">Home</router-link>
       <router-link to="/create-post" class="nav-link">Create Post</router-link>
       <router-link to="/login" class="nav-link">Login</router-link>
       <router-link to="/register" class="nav-link">Register</router-link>
-      <router-link to="/create-comment" class="nav-link">Create Comment</router-link>  <!-- 新增：創建留言 -->
-      <router-link to="/logout" class="nav-link">Logout</router-link>  <!-- 新增：創建留言 -->
-      <router-link to="/images" class="nav-link">ImagesList</router-link>  <!-- 新增：創建留言 -->
+      <router-link to="/create-comment" class="nav-link">Create Comment</router-link>
+      <router-link to="/logout" class="nav-link">Logout</router-link>
+      <router-link to="/images" class="nav-link">ImagesList</router-link>
+      <router-link to="/allpost" class="nav-link">AllPost</router-link>
     </nav>
     <router-view></router-view>
   </div>
@@ -24,29 +24,29 @@ export default {
 /* 基本的导航栏样式 */
 nav {
   margin-bottom: 20px;
-  background-color: #333;  /* 设置导航栏背景颜色 */
+  background-color: #333;
   padding: 10px;
-  border-radius: 8px;  /* 圆角效果 */
+  border-radius: 8px;
 }
 
 .nav-link {
-  color: white !important;  /* 确保字体颜色为白色，并使用!important增加优先级 */
-  text-decoration: none;  /* 移除默认的下划线 */
+  color: white !important;
+  text-decoration: none;
   margin-right: 15px;
   font-weight: 500;
   padding: 8px 15px;
-  border-radius: 4px;  /* 圆角效果 */
-  transition: background-color 0.3s;  /* 平滑过渡效果 */
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 .nav-link:hover {
-  background-color: #555;  /* 悬停显示背景颜色 */
-  color: white !important;  /* 确保悬停时文本颜色仍为白色 */
+  background-color: #555;
 }
 
 .nav-link.active-link {
-  background-color: #42b983;  /* 当前页面显示绿色背景 */
-  color: white !important;  /* 字体颜色变为白色 */
-  font-weight: bold;  /* 当前页面字体加粗 */
+  background-color: #42b983;
+  color: white !important;
+  font-weight: bold;
 }
 </style>
+

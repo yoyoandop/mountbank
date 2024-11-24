@@ -4,6 +4,8 @@
     <div v-if="posts.length">
       <div v-for="post in posts" :key="post.postId" class="post-card">
         <p>{{ post.content }}</p>
+        <!-- 顯示讚數 -->
+        <p>Likes: {{ post.likeCount }}</p>
         <!-- 修正日期格式問題 -->
         <p>Posted on: {{ formatDate(post.createdAt) }}</p>
         <button @click="deletePost(post.postId)">Delete</button>

@@ -7,6 +7,7 @@ import RegisterForm from '../components/RegisterForm.vue';
 import CommentCreate from '../components/CommentCreate.vue';
 import Logout from '../components/Logout.vue';
 import Images from '../components/ImagesList.vue';
+import AllPost from '../components/AllPost.vue'; // 引入 AllPost 頁面
 
 const routes = [
     {
@@ -42,14 +43,18 @@ const routes = [
     {
         path: '/logout',
         name: 'Logout',
-        component: Logout
+        component: Logout,
     },
     {
         path: '/images',
         name: 'Images',
-        component: Images
+        component: Images,
     },
-
+    {
+        path: '/allpost',
+        name: 'AllPost',
+        component: AllPost,  // 查看所有帖子
+    },
 ];
 
 const router = createRouter({

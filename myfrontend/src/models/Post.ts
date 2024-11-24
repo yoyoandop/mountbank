@@ -1,13 +1,12 @@
-// 修改 Post 類型，創建一個專門用於更新的 PostUpdate 類型
 export interface Post {
-    postId: number;
-    content: string;
-    image: string;
-    createdAt?: string;
-    phoneNumber: string; // 這裡會有 phoneNumber 屬性
+    postId: number;       // 文章 ID
+    content: string;      // 文章內容
+    image: string;        // 圖片 URL
+    createdAt?: string;   // 創建時間
+    phoneNumber: string;  // 作者電話號碼
+    likeCount: number;    // 讚數
 }
 
-// 用於更新時不需要 phoneNumber
 export interface PostUpdate {
     content: string;
     image: string;

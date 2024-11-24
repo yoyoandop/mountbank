@@ -4,6 +4,7 @@ import com.example.mountbank.model.Post;
 import com.example.mountbank.model.User;
 import com.example.mountbank.repository.PostRepository;
 import com.example.mountbank.repository.UserRepository;
+import com.example.mountbank.repository.LikeRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,12 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-
+    private final LikeRepository likeRepository;
     // Constructor injection
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository,LikeRepository likeRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.likeRepository = likeRepository;
     }
 
     // 通過 userId 創建發文
@@ -85,7 +87,7 @@ public class PostService {
 
     // 刪除發文
     public void deletePost(Long postId, String phoneNumber) {
-        // 根據 phoneNumber 查找用戶
+        // 根据 phoneNumber 查找用户
         Optional<User> userOptional = userRepository.findByPhoneNumber(phoneNumber);
         if (userOptional.isEmpty()) {
             throw new RuntimeException("User not found with phone number: " + phoneNumber);
@@ -93,7 +95,7 @@ public class PostService {
 
         User user = userOptional.get();
 
-        // 查找該帖子
+        // 查找该帖子
         Optional<Post> postOptional = postRepository.findById(postId);
         if (postOptional.isEmpty()) {
             throw new RuntimeException("Post not found");
@@ -101,12 +103,15 @@ public class PostService {
 
         Post post = postOptional.get();
 
-        // 檢查當前用戶是否是該帖子的作者
+        // 检查当前用户是否是该帖子的作者
         if (!post.getUser().getUserId().equals(user.getUserId())) {
             throw new RuntimeException("You are not the author of this post");
         }
 
-        // 刪除帖子
+        // 删除相关的 Like 数据
+        likeRepository.deleteByPost(post);  // 根据 Post 删除 Like
+
+        // 删除帖子
         postRepository.delete(post);
     }
 
