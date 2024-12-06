@@ -50,9 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/posts/{postId}/like").authenticated()  // 受保護的 like 操作
                 .antMatchers("/api/images/**", "/api/images/book/**").permitAll()  // 開放這些路徑
                 .antMatchers("/api/users/login", "/api/users/register").permitAll()
-                .antMatchers("/posts", "/posts/{id}").authenticated() // 受保護端點
-                .antMatchers("/comments/add/{postId}").authenticated() // 受保護端點
+                .antMatchers("/info").permitAll()
+                .antMatchers("/posts", "/posts/{id}").authenticated()
+                .antMatchers("/comments/add/{postId}").authenticated()
                 .anyRequest().authenticated()
+
+
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

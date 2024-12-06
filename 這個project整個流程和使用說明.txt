@@ -363,7 +363,7 @@ server.ssl.key-alias=localhost
 docker pull nginx
 掛載到靜態後端資源
 docker run --name my-nginx -p 80:80 -v "C:/Users/POWER USER/OneDrive/桌面/github/Mountbank/src/main/resources/static:/usr/share/nginx/html" -d nginx
-http://localhost/images/02.jpg
+http://localhost/static/images/02.jpg
 在專案根目錄創建 nginx.conf 文件
 cd C:\Users\POWER USER\OneDrive\桌面\github\Mountbank
 notepad nginx.conf
@@ -373,7 +373,7 @@ docker rm my-nginx
 docker restart my-nginx
 
 這是我照片的在瀏覽器的瀏覽地址
-http://localhost/images/02.jpg
+http://localhost/static/images/02.jpg
 
 
 
@@ -408,7 +408,7 @@ Content-Type application/json
 {
   "id": 1,
   "bookName": "test",
-  "url": "http://localhost/images/02.jpg",
+  "url": "http://localhost/static/images/02.jpg",
   "imageName": "cuteimages02"
 }
 搜尋

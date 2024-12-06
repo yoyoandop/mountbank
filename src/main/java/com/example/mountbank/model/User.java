@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-
+import java.util.ArrayList;
+import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
@@ -29,9 +30,12 @@ public class User {
     @Column(name = "biography")
     private String biography;
 
-    // 新增 phoneNumber 屬性
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",nullable = false, unique = true)
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
+
 
     // Default constructor
     public User() {}

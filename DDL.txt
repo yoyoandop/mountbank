@@ -1,0 +1,28 @@
+父表user
+CREATE TABLE users (
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,   
+    username VARCHAR(255) NOT NULL,               
+    email VARCHAR(255) NOT NULL UNIQUE,           
+    password VARCHAR(255) NOT NULL,              
+    cover_image VARCHAR(255),                     
+    biography TEXT,                              
+    phone_number VARCHAR(20) NOT NULL UNIQUE,      
+  
+);
+
+子表post
+CREATE TABLE posts (
+    post_id BIGINT AUTO_INCREMENT PRIMARY KEY, 
+    user_id BIGINT NOT NULL,                    
+    content VARCHAR(255) NOT NULL,              
+    image VARCHAR(255),                        
+    created_at TIMESTAMP NOT NULL,             
+    like_count INT NOT NULL DEFAULT 0,         
+    FOREIGN KEY (user_id) REFERENCES users(user_id) 
+);
+
+做聯級刪除
+ALTER TABLE comments 
+ADD CONSTRAINT FK_post_id_comments FOREIGN KEY (post_id) REFERENCES posts(post_id) 
+ON DELETE CASCADE;
+

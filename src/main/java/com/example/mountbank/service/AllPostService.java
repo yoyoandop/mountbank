@@ -7,7 +7,7 @@ import com.example.mountbank.repository.AllPostRepository;
 import com.example.mountbank.repository.LikeRepository;
 import com.example.mountbank.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +25,9 @@ public class AllPostService {
     }
 
     // 查詢所有的貼文
+    @Transactional()
     public List<Post> getAllPosts() {
-        return allPostRepository.findAll();  // 使用 Spring Data JPA 查詢所有帖子
+        return allPostRepository.getAllPosts();  // 使用 Spring Data JPA 查詢所有帖子
     }
 
     // 點讚或取消點讚

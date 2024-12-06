@@ -9,3 +9,6 @@ public interface ImagesRepository extends JpaRepository<Images, Long> {
     // 可定義額外查詢方法，例如通過書名查找
     Images findByBookName(String bookName);
 }
+
+
+

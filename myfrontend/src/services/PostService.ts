@@ -6,7 +6,7 @@ const API_URL = 'https://localhost:8443/posts';
 // 取得所有的帖子
 export const getPosts = async () => {
     const response = await axios.get(API_URL, {
-        withCredentials: true, // 確保請求攜帶跨域憑證
+        withCredentials: true,
     });
     return response.data;
 };
@@ -16,7 +16,7 @@ export const createPost = async (
     post: { content: string; image?: string }
 ) => {
     const response = await axios.post(API_URL, post, {
-        withCredentials: true, // 確保請求攜帶跨域憑證
+        withCredentials: true,
     });
     return response.data;
 };
@@ -27,7 +27,7 @@ export const updatePost = async (
     post: { content: string; image?: string }
 ) => {
     const response = await axios.put(`${API_URL}/${postId}`, post, {
-        withCredentials: true, // 確保請求攜帶跨域憑證
+        withCredentials: true,
     });
     return response.data;
 };
@@ -35,6 +35,6 @@ export const updatePost = async (
 // 刪除帖子
 export const deletePost = async (postId: number) => {
     await axios.delete(`${API_URL}/${postId}`, {
-        withCredentials: true, // 確保請求攜帶跨域憑證
+        withCredentials: true,
     });
 };

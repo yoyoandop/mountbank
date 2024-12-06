@@ -38,7 +38,7 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<Post>> getPostsByUser(Authentication authentication) {
         // 從 authentication 獲取 phoneNumber
-        String phoneNumber = authentication.getName(); // 假設 authentication.getName() 返回 phoneNumber
+        String phoneNumber = authentication.getName();
 
         List<Post> posts = postService.getPostsByPhoneNumber(phoneNumber);
         return ResponseEntity.ok(posts);
@@ -46,25 +46,17 @@ public class PostController {
 
     // 編輯發文
     @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post post, Authentication authentication) {
-        // 從 Authentication 中獲取 phoneNumber
-        String phoneNumber = authentication.getName();
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post post) {
 
-        // 調用 PostService 層的 updatePost 方法，執行更新邏輯
-        Post updatedPost = postService.updatePost(id, post.getContent(), post.getImage(), phoneNumber);
+        postService.updatePost(id, post.getContent(), post.getImage());
 
-        return ResponseEntity.ok(updatedPost);
+        return ResponseEntity.ok().build();
     }
 
     // 刪除發文
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long id, Authentication authentication) {
-        // 從 authentication 中獲取 phoneNumber
-        String phoneNumber = authentication.getName();
-
-        // 呼叫 PostService 刪除發文，並確保該用戶是該帖子的作者
-        postService.deletePost(id, phoneNumber);
-
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
         return ResponseEntity.ok().build();
     }
 
